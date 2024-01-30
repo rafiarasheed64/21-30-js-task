@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>guess word project practice</title>
+    <style>
+        .button{
+            padding: 20px;
+            font-size: 24px;
+            background-color: blue;
+            color: white;
+        }
+        .msg {
+            font-size: 22px;
+            margin-top: 20px;
+            font-family: cursive;
+        }
+        .letter {
+            font-size: 20px;
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #080808;
+            border-radius: 15px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .letter2 {
+            font-size: 22px;
+            padding: 5px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .done {
+            color: rgb(194, 189, 189);
+            border: 1px solid rgb(221, 25, 25);
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="alphabet-div"></div>
+    <div class="output-div"></div>
+    <div class="msg"></div>
+    <button class="button">START</button>
+    <script>
+        let alphabetdiv = document.querySelector(".alphabet-div")
+        let outputdiv = document.querySelector(".output-div")
+        let msg = document.querySelector(".msg")
+        let button = document.querySelector(".button")
+        let obj = {}
+        let words = ["HTML","CSS","JAVASCRIPT"]
+        button.addEventListener("click",function(){
+            alphabetdiv.innerHTML = ""
+            outputdiv.innerHTML = ""
+            if(words.length > 0){
+            button.style.display = "none"
+            let remove_first = words.shift();
+            obj = remove_first.split("");
+            console.log(obj);
+
+            funct();
+            }
+            else {
+                msg.style.color = "red";
+                msg.innerHTML = "no more words";
+            }
+        })
+        function funct() {
+            obj.forEach(function (letter) {
+                let dash = document.createElement("div");
+                outputdiv.appendChild(dash);
+                dash.classList.add("letter2");
+                dash.innerText = "_";
+                dash.myLetter = letter 
+                console.log(dash);
+            })
+            let solutionLetter = document.querySelectorAll(".letter2");
+            for (let i = 0; i < 26; i++) {
+                let capitalLet = String.fromCharCode(65 + i);
+                let div = document.createElement("div");
+                div.classList.add("letter");
+                div.myLetter = capitalLet;
+                div.addEventListener("click",frm);
+                div.innerHTML = capitalLet;
+                alphabetdiv.appendChild(div);
+                function frm (element) {
+                    div.removeEventListener("click",frm);
+                    div.classList.add("done");
+                    let counter = 0;
+                    let guess = 0;
+                    let message = 0;
+                    solutionLetter.forEach(function (letter) {
+                        if (letter.innerHTML != "_") {
+                            counter++
+                        }
+                        if (letter.myLetter.toUpperCase() === capitalLet) {
+                            letter.innerHTML = capitalLet;
+                            guess++;
+                        }
+                    })
+                    if (guess > 0) {
+                        let tm;
+                        if (guess > 1) tm = "times"
+                        else ( tm = "time")
+                        message = "You found " + capitalLet + " letter " + guess + " " + tm;
+                        msg.style.color = "blue";
+                    }
+                    else {
+                        msg.style.color = "red";
+                        message = "Not found";
+                    }
+                
+                let letterLeft = solutionLetter.length - (guess + counter);
+                msg.innerHTML = message + "<br>" + letterLeft + " letters left";
+                    if (letterLeft < 1) {
+                        button.style.display = "block";
+                    }
+                }
+            }
+        }
+        
+    
+
+    </script>
+</body>
+</html>

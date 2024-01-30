@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mouse move and change its size</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            height: 100vh;
+            width: 100%;
+            background-color: pink;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-circle{
+            height: 70px;
+            width: 70px;
+            border-radius: 50%;
+            background-color: rgba(250, 235, 215, 0.534);
+            position: absolute;
+            transition: all 0.1s linear;
+        }
+        .heading{
+            margin-top: 20px;
+        }
+        .div{
+            height: 90px;
+            width: 420px;
+            background-color: rgb(252, 102, 132);
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+        }
+        .circle1{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 255, 0.438);
+        }
+        .circle2{
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 255, 0.438);
+        }
+        .circle3{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 255, 0.438);
+        }
+        .circle4{
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 255, 0.438);
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="main-circle"></div>
+        <h1 class=" heading">CLICK & DRAW</h1>
+        <div class="div">
+            <div class="cir circle1" id="30"></div>
+            <div class="cir circle2" id="40"></div>
+            <div class="cir circle3" id="50"></div>
+            <div class="cir circle4" id="60"></div>
+        </div>
+    </div>
+    <script>
+        let main = document.querySelector(".main")
+        let maincircle = document.querySelector(".main-circle")
+        let heading = document.querySelector(".heading")
+        let cir = document.querySelectorAll(".cir")
+        main.addEventListener("mousemove", (e)=>{
+            maincircle.style.left = `${e.x}px`
+            maincircle.style.top = `${e.y}px`
+        })
+        heading.addEventListener("mouseenter", ()=>{
+            maincircle.style.transform = "scale(1.3)"
+        })
+        heading.addEventListener("mouseleave", ()=>{
+            maincircle.style.transform = "scale(1)"
+        })
+        cir.forEach((f)=>{
+            f.addEventListener("click", ()=>{
+                maincircle.style.height = `${f.id}px`
+                maincircle.style.width = `${f.id}px`
+                console.log(cir.id);
+
+            })
+        })
+        
+    </script>
+    
+</body>
+</html>

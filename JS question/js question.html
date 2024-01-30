@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5968/5968509.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js Questions 15</title>
+</head>
+<body>
+    <div class="box"></div>
+
+    <div id="parent">
+        <button class="child">Button 1</button>
+        <button class="child">Button 2</button>
+        <button class="child">Button 3</button>
+    </div>
+
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <script>
+
+        // Q1: What is the difference between null and undefined in JavaScript?
+        let number
+
+        console.log(number, typeof number);
+
+        let box = document.querySelectorAll(".box")
+
+        console.log(box);
+
+        change('danish')
+
+        function change(name){
+
+            console.log(name);
+
+        }
+
+        // Q2: How do you clone an object in JavaScript?
+
+        // in clone ....array as is it copy in new array
+        let arr = ["apple", "mango", "grapes"]
+        let arr1 = ["banana", "melon", "pineapple"]
+        // 1st method
+        let newClonedArray = [...arr, ...arr1]
+        console.log(newClonedArray);
+
+
+        let objData = { name: "Ali", age: 22 }
+        console.log(objData);
+        let newClonedObj = { ...objData }
+        console.log(newClonedObj);
+
+        let data = { name: "Ali", age: 22, performance: "excelant" }
+        console.log(data);
+        // 2nd method
+        let newObj = Object.assign({}, data)
+        console.log(newObj);
+
+
+        // Q3: What are the different ways to create an array in JavaScript?
+        // 1st method
+        let myarray1 = ["a", "b", "c"]
+        console.log(myarray1);
+
+        // 2nd method
+        let myarray = new Array("a", "b", "c")
+        console.log(myarray);
+
+        // Q4: What is event delegation in JavaScript?
+
+        // Attach an event listener to the parent element
+
+        const parentElement = document.getElementById('parent');
+
+        parentElement.addEventListener('click', function (event) {
+            console.log(event);
+            // Check if the clicked element is one of the child buttons
+            if (event.target.classList.contains('child')) {
+                // Perform the desired action
+                alert(`Button "${event.target.textContent}" clicked!`);
+            }
+        });
+
+        // Q5: Explain hoisting in JavaScript
+
+        // console.log(mynumber);
+        // let mynumber 
+
+        // x()
+
+        // let x = () => {
+
+        //     console.log("function is in working");
+
+        // }
+
+        // Q6: What is the difference between call() and apply() methods in JavaScript?
+
+        function greet(name) {
+            console.log(`Hello, ${name}! My name is ${this.name}.`);
+        }
+
+        const person = { name: 'John' };
+
+
+
+        greet.call(person, 'Alice');
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        
+        let arr11 = []
+
+        console.log(arr11, typeof arr11);
+
+        let namee = null
+
+        console.log(namee, typeof namee);
+
+        let str = {}
+
+        console.log(str, typeof str);
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+
+    //    let boxes = document.querySelectorAll(".box")
+       
+    //    boxes.forEach(  (ele, idx)=>  {
+    //     console.log(ele);
+    //    })
+
+    </script>
+
+
+
+</body>
+
+</html>

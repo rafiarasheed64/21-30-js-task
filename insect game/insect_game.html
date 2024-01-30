@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSECT GAME</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main {
+            height: 100vh;
+            width: 100%;
+            background-color: rgb(81, 109, 255);
+            overflow: hidden;
+        }
+        .box,
+        .box2 {
+            height: 100vh;
+            width: 100%;
+            border: 1px solid #000;
+        }
+        .box2 {
+            position: relative;
+        }
+        .heading {
+            color: white;
+            font-size: 55px;
+            text-align: center;
+            margin-top: 15%;
+        }
+        .button {
+            color: blue;
+            background-color: white;
+            border: none;
+            outline: none;
+            font-size: 25px;
+            padding: 10px 17px;
+            margin-top: 20px;
+            margin-left: 45%;
+        }
+        .box1 {
+            height: max-content;
+            width: 50%;
+            margin: auto;
+            margin-top: 20px;
+            display: flex;
+         justify-content: space-between;
+        }
+        .subbox {
+            height: 150px;
+            width: 150px;
+            border: 1px solid #e4dede;
+        }
+        .heading1 {
+            color: white;
+            text-align: center;
+        }
+        .image1 {
+            height: 60%;
+            width: 70%;
+            margin-left: 10%;
+            margin-top: 10%;
+        }
+        .moveup {
+            margin-top: -100vh;
+            transition: 0.2s linear;
+        }
+        .box-move {
+            margin-top: -200vh;
+            transition: 0.2s linear;
+        }
+        .imageDiv-st {
+            height: 100px;
+            width: 100px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+        .img11 {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="box">
+            <h1 class="heading">Catch The Insect</h1>
+            <button class="button">Play Game</button>
+        </div>
+        <div class="box">
+            <h1 class="heading">What is your "favorite" insect?</h1>
+            <div class="box1">
+                <div class="subbox">
+                    <h2 class="heading1">Fly</h2>
+                    <img class="image1" src="./images-removebg-preview.png" alt="">
+                </div>
+                <div class="subbox">
+                    <h2 class="heading1">Mosquito</h2>
+                    <img class="image1" src="./4f1dea5bca2c6b4ae33aa5017f881897-removebg-preview.png" alt="">
+
+                </div>
+                <div class="subbox">
+                    <h2 class="heading1">Spider</h2>
+                    <img class="image1"
+                        src="./png-clipart-round-black-and-white-illustration-spider-cartoon-animation-cute-cartoon-spiders-photography-cartoon-removebg-preview.png"
+                        alt="">
+                </div>
+                <div class="subbox">
+                    <h2 class="heading1">Bees</h2>
+                    <img class="image1" src="./LTdjLLjXc.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="box2">
+            <h2>Time : <span class="time"></span></h2>
+            <h2 class="score">Score : 0</h2>
+        </div>
+    </div>
+
+    <script>
+        let button = document.querySelector(".button")
+        let box = document.querySelector(".box")
+        let image1 = document.querySelectorAll(".image1")
+        let box2 = document.querySelector(".box2")
+        let timeEl = document.querySelector(".time")
+        let scoreI = document.querySelector(".score")
+        let score = 0
+        let getsource
+        let seconds = 0
+        button.addEventListener("click", function () {
+            box.classList.add("moveup")
+            MakeInsect()
+        })
+        function MakeInsect() {
+            image1.forEach(function (element, index) {
+                element.addEventListener("click", function () {
+                    box.classList.add("box-move")
+                    getsource = element.getAttribute("src")
+                    setTimeout(function () {
+                        // Argument
+                        createInsect()
+                    }, 1000)
+                    setInterval(function () {
+                        timeUpdate()
+                    }, 1000)
+                })
+            })
+        }
+        function timeUpdate() {
+            seconds++
+            let sec
+            if (seconds < 10) {
+                sec = ` 00 : 0${seconds}`
+                timeEl.innerText = sec
+            }
+            else {
+                timeEl.innerText = seconds
+            }
+        }
+        function createInsect() {
+            let randomNumber = Math.floor(Math.random() * 360)
+            let imageDiv = document.createElement("div")
+            let widthValue = window.innerWidth
+            let RandomLeftPosition = Math.floor(Math.random() * (widthValue - 200) + 100)
+            imageDiv.style.left = `${RandomLeftPosition}px`
+            let heightValue = window.innerHeight
+            let randomTopposition = Math.floor(Math.random() * (heightValue - 200) + 100)
+            imageDiv.style.top = `${randomTopposition}px`
+            imageDiv.classList.add("imageDiv-st")
+            imageDiv.innerHTML = `<img class="img11" src="${getsource}" alt="" style="transform: rotate(${randomNumber}deg)">`
+            box2.appendChild(imageDiv)
+            imageDiv.addEventListener("click", function () {
+                imageDiv.style.display = "none"
+                AddInsect()
+                increaseScore()
+            })
+        }
+        function AddInsect() {
+            setTimeout(createInsect, 1000)
+            setTimeout(createInsect, 1500)
+        }
+        function increaseScore() {
+            score++
+            scoreI.innerHTML = `Score: ${score}`
+            console.log(scoreI);
+            if (score > 5) {
+                setTimeout(function () {
+                    location.reload()
+                }, 1000)
+            }
+        }
+    </script>
+</body>
+</html>
